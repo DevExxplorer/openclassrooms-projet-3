@@ -302,3 +302,4 @@ pip-selfcheck.json
 /flake8_rapport/
 .idea
 /data/players.json
+.DS_Store
