@@ -5,9 +5,6 @@ FILENAME = "players.json"
 
 
 class Player:
-    def __init__(self):
-        pass
-
     @staticmethod
     def read():
         if os.path.exists("data/" + FILENAME):
@@ -15,3 +12,14 @@ class Player:
                 players_json = sorted(json.load(file), key=lambda player: player['lastname'])
 
         return players_json
+
+    @staticmethod
+    def create(new_data):
+        if not os.path.isdir('data'):
+            os.mkdir('data')
+
+        list_players = Player.read()
+        list_players.append(new_data)
+
+        with open("data/" + FILENAME, "w", encoding="utf-8") as file:
+            json.dump(list_players, file, ensure_ascii=False, indent=4)

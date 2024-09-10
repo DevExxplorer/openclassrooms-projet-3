@@ -6,6 +6,7 @@ class MenusView:
         self.menu = menu
 
     def view_main_menu(self):
+        print('\n')
         self.template_menu()
         menu_selected = input(SELECTED_MESSAGE)
         return menu_selected

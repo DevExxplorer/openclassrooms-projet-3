@@ -5,10 +5,11 @@ BOLD = '\033[1m'
 RESET = '\033[0m'
 UNDERLINE = '\033[4m'
 
-MESSAGE_MENU = f'{BLUE}{BOLD}{UNDERLINE}Bienvenue sur notre application d\'échecs{RESET}\n'
+MESSAGE_MENU = f'{BLUE}{BOLD}{UNDERLINE}Bienvenue sur notre application d\'échecs{RESET}'
 ERROR_MENU = f'\n {RED}{BOLD}Erreur: La valeur séléctionnée doit être un numéro du menu {RESET}\n'
 SELECTED_MESSAGE = f'\n{BLUE}{BOLD}Veuillez séléctionner votre choix parmi les numéros ci-dessus: {RESET}'
 NEW_PLAYER = f'\n{UNDERLINE}Ajout d\'un nouveau joueur{RESET}'
+VALIDATION_PLAYER = f'\n{GREEN}Le nouveau joueur a bien été créé{RESET}'
 MENUS = {
     '1': {
                 'text': '1 - Accéder aux menus des joueurs',
