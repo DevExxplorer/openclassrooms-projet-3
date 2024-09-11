@@ -1,0 +1,14 @@
+[
+    {
+        "name": "test",
+        "place": "test",
+        "start_date": "12-11-2012",
+        "end_date": "13-11-2012"
+    },
+    {
+        "name": "miami",
+        "place": "miami",
+        "start_date": "15-03-2024",
+        "end_date": "17-03-2024"
+    }
+]

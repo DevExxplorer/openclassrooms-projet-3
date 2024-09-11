@@ -9,7 +9,9 @@ MESSAGE_MENU = f'{BLUE}{BOLD}{UNDERLINE}Bienvenue sur notre application d\'éche
 ERROR_MENU = f'\n {RED}{BOLD}Erreur: La valeur séléctionnée doit être un numéro du menu {RESET}\n'
 SELECTED_MESSAGE = f'\n{BLUE}{BOLD}Veuillez séléctionner votre choix parmi les numéros ci-dessus: {RESET}'
 NEW_PLAYER = f'\n{UNDERLINE}Ajout d\'un nouveau joueur{RESET}'
+NEW_TOURNAMENT = f'\n{UNDERLINE}Ajout d\'un nouveau tournoi{RESET}'
 VALIDATION_PLAYER = f'\n{GREEN}Le nouveau joueur a bien été créé{RESET}'
+VALIDATION_TOURNAMENT = f'\n{GREEN}Le nouveau tournoi a bien été créé{RESET}'
 MENUS = {
     '1': {
                 'text': '1 - Accéder aux menus des joueurs',

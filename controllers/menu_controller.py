@@ -1,7 +1,9 @@
 from utils.constants import *
 from views.menus_views import MenusView
 from views.players_views import PlayersViews
+from views.tournaments_views import TournamentsViews
 from models.player import Player
+from models.tournament import Tournament
 
 
 class MenuController:
@@ -30,11 +32,21 @@ class MenuController:
     def view_players(self):
         players_data = Player().read()
         PlayersViews().players_view_list(players_data)
+
         self.display_submenu()
 
     def create_player(self):
         new_data = PlayersViews().players_view_create()
         Player().create(new_data)
+        self.display_submenu()
+
+    def create_tournament(self):
+        new_data = TournamentsViews().tournaments_view_create()
+        tournament_return = Tournament().create(new_data)
+
+        if tournament_return:
+            TournamentsViews().message_user(VALIDATION_TOURNAMENT)
+
         self.display_submenu()
 
     def menu_back(self):

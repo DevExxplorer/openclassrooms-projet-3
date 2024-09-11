@@ -1,5 +1,10 @@
 from models.round import Round
 
+import json
+import os
+
+FILENAME = "tournaments.json"
+
 
 class Tournament:
     def __init__(self):
@@ -38,7 +43,31 @@ class Tournament:
         self.number_round = 4
         self.current_round = 1
 
-    def start_tournament(self):
+    @staticmethod
+    def read():
+        if os.path.exists("data/" + FILENAME):
+            with open("data/" + FILENAME, "r", encoding="utf-8") as file:
+                tournament_json = sorted(json.load(file), key=lambda x: x['name'])
+        else:
+            tournament_json = []
+
+        return tournament_json
+
+    @staticmethod
+    def create(new_data):
+        if not os.path.isdir('data'):
+            os.mkdir('data')
+
+        list_tournaments = Tournament.read()
+        list_tournaments.append(new_data)
+
+        with open("data/" + FILENAME, "w", encoding="utf-8") as file:
+            json.dump(list_tournaments, file, ensure_ascii=False, indent=4)
+
+        return True
+
+
+def start_tournament(self):
         while self.current_round <= self.number_round:
             print(f'\nTour {self.current_round}:\n')
 
