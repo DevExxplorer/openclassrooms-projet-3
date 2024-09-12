@@ -1,15 +1,10 @@
 from utils.constants import *
-from controllers.menu_controller import MenuController
-
-from models.tournament import Tournament
+from controllers.menu_manager import MenuManager
 
 
 def main():
-    print(f'{BLUE}{BOLD}{UNDERLINE}{MESSAGE_MENU}{RESET}')
-    MenuController().display_main_menu()
-
-    # tournament = Tournament()
-    # tournament.start_tournament()
+    print(f'{BLUE}{BOLD}{UNDERLINE}{MESSAGE_MENU}{RESET}\n')
+    MenuManager(MAIN_MENU).main_menu()
 
 
 if __name__ == '__main__':
