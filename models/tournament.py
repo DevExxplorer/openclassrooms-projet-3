@@ -1,5 +1,3 @@
-from models.round import Round
-
 import json
 import os
 
@@ -10,32 +8,32 @@ class Tournament:
     def __init__(self):
         self.list_players = [
             {
-                'player': 'player1',
+                'name': 'Clément',
+                'score': 0,
+                'already_played': ['Pierre']
+            },
+            {
+                'name': 'Pierre',
+                'score': 0,
+                'already_played': ['Clément', 'Jacques']
+            },
+            {
+                'name': 'Loic',
                 'score': 0,
                 'already_played': []
             },
             {
-                'player': 'player2',
+                'name': 'Jacques',
+                'score': 0,
+                'already_played': ['Pierre']
+            },
+            {
+                'name': 'Philippe',
                 'score': 0,
                 'already_played': []
             },
             {
-                'player': 'player3',
-                'score': 0,
-                'already_played': []
-            },
-            {
-                'player': 'player4',
-                'score': 0,
-                'already_played': []
-            },
-            {
-                'player': 'player5',
-                'score': 0,
-                'already_played': []
-            },
-            {
-                'player': 'player6',
+                'name': 'Manon',
                 'score': 0,
                 'already_played': []
             },
@@ -66,11 +64,15 @@ class Tournament:
 
         return True
 
-
-def start_tournament(self):
+    """
+    def start_tournament(self):
         while self.current_round <= self.number_round:
             print(f'\nTour {self.current_round}:\n')
 
-            Round(self.list_players).start_round()
+            round_tournament = Round(self.list_players)
+            round_tournament.start_round()
+            round_tournament.end_round()
 
+            input('\nPasser au prochain round (Appuyer sur n\'importe qu\'elle touche: ')
             self.current_round = self.current_round + 1
+    """
