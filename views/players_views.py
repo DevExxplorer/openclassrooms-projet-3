@@ -1,45 +1,28 @@
 from tabulate import tabulate
 from utils.constants import *
-from datetime import datetime
-import re
 
 
 class PlayersViews:
     @staticmethod
-    def players_view_list(players_data):
-        header = list(players_data[0].keys())
-        body = [list(player.values()) for player in players_data]
-        print(tabulate(body, headers=header, tablefmt="double_grid"))
+    def players_view_list(headers, body):
+        print(tabulate(body, headers=headers, tablefmt="double_grid"))
 
     @staticmethod
     def players_view_create():
         print(NEW_PLAYER)
-        lastname = input(f'\nNom: ')
+        lastname = input('Nom: ')
         firstname = input('Prénom: ')
+        birthday = input('Date d\'anniversaire (format: JJ/MM/AAAA): ')
+        chess_id = input('Identifiant national d’échecs: ')
 
-        while True:
-            birthday = input('Date d\'anniversaire (format: JJ/MM/AAAA): ')
-            try:
-                datetime.strptime(birthday, '%d/%m/%Y')
-                break
-            except ValueError:
-                print("Erreur: le format de la date est incorrect. Utilisez JJ/MM/AAAA.")
-
-        while True:
-            chess_id = input('Identifiant national d’échecs: ')
-            try:
-                check_chess_id = re.search("^[A-Z]{2}[0-9]{5}$", chess_id)
-                if check_chess_id:
-                    break
-                else:
-                    print('L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres')
-            except ValueError:
-                print('L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres')
-
-        print(f'{VALIDATION_PLAYER}')
         return {
             'lastname': lastname,
             'firstname': firstname,
             'birthday': birthday,
             'chess_id': chess_id
         }
+
+    @staticmethod
+    def message_player(type_message, message):
+        color_message = GREEN if type_message == 'validate' else RED
+        print(f'{color_message}{BOLD}{message}{RESET}')

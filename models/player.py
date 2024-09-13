@@ -7,11 +7,18 @@ FILENAME = "players.json"
 class Player:
     @staticmethod
     def read():
-        if os.path.exists("data/" + FILENAME):
-            with open("data/" + FILENAME, "r", encoding="utf-8") as file:
-                players_json = sorted(json.load(file), key=lambda player: player['lastname'])
+        file_path = os.path.join("data", FILENAME)
 
-        return players_json
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, "r", encoding="utf-8") as file:
+                    return sorted(json.load(file), key=lambda player: player['lastname'])
+            except json.JSONDecodeError:
+                print(f"Erreur : Le fichier {FILENAME} contient des données JSON non valides.")
+        else:
+            print(f"Erreur : Le fichier {FILENAME} n'existe pas.")
+
+        return []
 
     @staticmethod
     def create(new_data):
@@ -21,5 +28,9 @@ class Player:
         list_players = Player.read()
         list_players.append(new_data)
 
-        with open("data/" + FILENAME, "w", encoding="utf-8") as file:
-            json.dump(list_players, file, ensure_ascii=False, indent=4)
+        try:
+            with open("data/" + FILENAME, "w", encoding="utf-8") as file:
+                json.dump(list_players, file, ensure_ascii=False, indent=4)
+                return {'success': True, 'message': 'Le nouveau joueur a bien été créé'}
+        except Exception as e:
+            return {'success': False, 'message': f'Erreur : {e}'}

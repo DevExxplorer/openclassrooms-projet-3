@@ -8,9 +8,8 @@ UNDERLINE = '\033[4m'
 MESSAGE_MENU = f'{BLUE}{BOLD}{UNDERLINE}Bienvenue sur notre application d\'échecs{RESET}'
 ERROR_MENU = f'\n{RED}{BOLD}Erreur: La valeur séléctionnée doit être un numéro du menu {RESET}\n'
 SELECTED_MESSAGE = f'\n{BLUE}{BOLD}Veuillez séléctionner votre choix parmi les numéros ci-dessus: {RESET}'
-NEW_PLAYER = f'\n{UNDERLINE}Ajout d\'un nouveau joueur{RESET}'
+NEW_PLAYER = f'\n{UNDERLINE}Ajout d\'un nouveau joueur{RESET}\n'
 NEW_TOURNAMENT = f'\n{UNDERLINE}Ajout d\'un nouveau tournoi{RESET}'
-VALIDATION_PLAYER = f'\n{GREEN}Le nouveau joueur a bien été créé{RESET}'
 VALIDATION_TOURNAMENT = f'\n{GREEN}Le nouveau tournoi a bien été créé{RESET}'
 PLAYER_MENU = {
     '1': {
@@ -63,4 +62,10 @@ MAIN_MENU = {
         'slug': 'tournament',
         'submenu': TOURNAMENT_MENU
     }
+}
+TRANSLATE = {
+    'lastname': 'Nom',
+    'firstname': 'Prénom',
+    'birthday': 'Anniversaire',
+    'chess_id': 'Identifiant national d\'échec'
 }
