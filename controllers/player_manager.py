@@ -48,7 +48,7 @@ class PlayerManager:
         except ValueError:
             self.errors_message.append('Erreur: L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres')
 
-    def view_players(self):
+    def view_players(self, active_menu=True):
         players_data = Player().read()
 
         headers = []
@@ -59,7 +59,8 @@ class PlayerManager:
         body = [list(player.values()) for player in players_data]
         PlayersViews().players_view_list(headers, body)
 
-        self.menu_manager.submenu_init()
+        if not active_menu:
+            self.menu_manager.submenu_init()
 
     def menu_back(self):
         self.menu_manager.main_menu()

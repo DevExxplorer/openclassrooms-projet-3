@@ -1,14 +1,29 @@
 [
     {
-        "name": "test",
-        "place": "test",
-        "start_date": "12-11-2012",
-        "end_date": "13-11-2012"
+        "name": "Master de miami",
+        "place": "Miami",
+        "dates": [
+            "21/08/2024",
+            "23/08/2024"
+        ],
+        "number_round": 4,
+        "players": [
+            "AB56789",
+            "GH34598"
+        ],
+        "description": "tournoi de miami"
     },
     {
-        "name": "miami",
-        "place": "miami",
-        "start_date": "15-03-2024",
-        "end_date": "17-03-2024"
+        "name": "Master de Paris",
+        "place": "Paris",
+        "dates": [
+            "21/08/2024",
+            "23/08/2024"
+        ],
+        "number_round": 5,
+        "players": [
+            "AB56789"
+        ],
+        "description": "test"
     }
 ]

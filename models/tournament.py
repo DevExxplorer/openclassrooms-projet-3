@@ -5,74 +5,50 @@ FILENAME = "tournaments.json"
 
 
 class Tournament:
-    def __init__(self):
-        self.list_players = [
-            {
-                'name': 'Clément',
-                'score': 0,
-                'already_played': ['Pierre']
-            },
-            {
-                'name': 'Pierre',
-                'score': 0,
-                'already_played': ['Clément', 'Jacques']
-            },
-            {
-                'name': 'Loic',
-                'score': 0,
-                'already_played': []
-            },
-            {
-                'name': 'Jacques',
-                'score': 0,
-                'already_played': ['Pierre']
-            },
-            {
-                'name': 'Philippe',
-                'score': 0,
-                'already_played': []
-            },
-            {
-                'name': 'Manon',
-                'score': 0,
-                'already_played': []
-            },
-        ]
-        self.number_round = 4
-        self.current_round = 1
+    def __init__(self, data):
+        self.data = data
 
-    @staticmethod
-    def read():
-        if os.path.exists("data/" + FILENAME):
-            with open("data/" + FILENAME, "r", encoding="utf-8") as file:
-                tournament_json = sorted(json.load(file), key=lambda x: x['name'])
-        else:
-            tournament_json = []
-
-        return tournament_json
-
-    @staticmethod
-    def create(new_data):
+    def create(self):
         if not os.path.isdir('data'):
             os.mkdir('data')
 
-        list_tournaments = Tournament.read()
-        list_tournaments.append(new_data)
+        list_tournament = self.read()
 
-        with open("data/" + FILENAME, "w", encoding="utf-8") as file:
-            json.dump(list_tournaments, file, ensure_ascii=False, indent=4)
+        result = {tournament['slug']: tournament['value'] for tournament in self.data}
+        list_tournament.append(result)
 
-        return True
+        try:
+            with open("data/" + FILENAME, "w", encoding="utf-8") as file:
+                json.dump(list_tournament, file, ensure_ascii=False, indent=4)
+                return {'success': True, 'message': 'Le nouveau tournoi a bien été créé'}
+        except Exception as e:
+            return {'success': False, 'message': f'Erreur : {e}'}
 
-    """
-    def start_tournament(self):
-        while self.current_round <= self.number_round:
-            print(f'\nTour {self.current_round}:\n')
+    @staticmethod
+    def read():
+        file_path = os.path.join("data", FILENAME)
 
-            round_tournament = Round(self.list_players)
-            round_tournament.start_round()
-            round_tournament.end_round()
+        if os.path.exists(file_path):
+            try:
+                with open(file_path, "r", encoding="utf-8") as file:
+                    return sorted(json.load(file), key=lambda tournament: tournament['name'])
+            except json.JSONDecodeError:
+                print(f"Erreur : Le fichier {FILENAME} contient des données JSON non valides.")
+        else:
+            print(f"Erreur : Le fichier {FILENAME} n'existe pas.")
 
-            input('\nPasser au prochain round (Appuyer sur n\'importe qu\'elle touche: ')
-            self.current_round = self.current_round + 1
+        return []
+
+    
+    """  
+        def start_tournament(self):
+            while self.current_round <= self.number_round:
+                print(f'\nTour {self.current_round}:\n')
+    
+                round_tournament = Round(self.list_players)
+                round_tournament.start_round()
+                round_tournament.end_round()
+    
+                input('\nPasser au prochain round (Appuyer sur n\'importe qu\'elle touche: ')
+                self.current_round = self.current_round + 1
     """

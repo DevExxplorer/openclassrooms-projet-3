@@ -69,3 +69,44 @@ TRANSLATE = {
     'birthday': 'Anniversaire',
     'chess_id': 'Identifiant national d\'échec'
 }
+ERROR_MSG = {
+    'chess_id': 'Erreur: L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres'
+}
+INPUTS_TOURNAMENT = [
+    {
+        'name': 'Nom',
+        'slug': 'name',
+        'type': 'text',
+        'valid': False
+    },
+    {
+        'name': 'Lieu',
+        'slug': 'place',
+        'type': 'text',
+        'valid': False
+    },
+    {
+        'name': 'Date de début / Date de fin (DD/MM/YYYY,DD/MM/YYYY)',
+        'slug': 'dates',
+        'type': 'date',
+        'valid': False
+    },
+    {
+        'name': 'Nombre de tour (par default: 4)',
+        'slug': 'number_round',
+        'type': 'number',
+        'valid': False
+    },
+    {
+        'name': 'Ajouter les INE des joueurs qui participent au tournoi (Séparer les joueurs par une virgule)',
+        'slug': 'players',
+        'type': 'list',
+        'valid': False
+    },
+    {
+        'name': 'Description',
+        'slug': 'description',
+        'type': 'text',
+        'valid': False
+    },
+]
