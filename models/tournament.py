@@ -5,16 +5,13 @@ FILENAME = "tournaments.json"
 
 
 class Tournament:
-    def __init__(self, data):
-        self.data = data
-
-    def create(self):
+    def create(self, data):
         if not os.path.isdir('data'):
             os.mkdir('data')
 
         list_tournament = self.read()
 
-        result = {tournament['slug']: tournament['value'] for tournament in self.data}
+        result = {tournament['slug']: tournament['value'] for tournament in data}
         list_tournament.append(result)
 
         try:
@@ -39,7 +36,15 @@ class Tournament:
 
         return []
 
-    
+    def get_tournament_by_name(self, name_tournament):
+        list_tournament = self.read()
+
+        for tournament in list_tournament:
+            if tournament['name'] == name_tournament:
+                return tournament
+        return 'Le tournoi n\'existe pas'
+
+
     """  
         def start_tournament(self):
             while self.current_round <= self.number_round:

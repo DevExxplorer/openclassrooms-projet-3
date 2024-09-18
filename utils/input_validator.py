@@ -1,5 +1,6 @@
 from utils.constants import *
 from datetime import datetime
+from models.player import Player
 import re
 
 
@@ -65,10 +66,13 @@ class InputValidator:
         for player in list_players_input:
             check_chess_id = InputValidator.check_chess_id(player)
             if player not in list_players_check and check_chess_id['success']:
-                list_players_check.append(player)
+                name_player = Player.get_name_by_id_chess(player)
+                list_players_check.append(name_player)
 
-        input_data['value'] = list_players_check
-        input_data['valid'] = True
+        if list_players_check:
+            input_data['value'] = list_players_check
+            input_data['valid'] = True
+
         return input_data
 
     @staticmethod

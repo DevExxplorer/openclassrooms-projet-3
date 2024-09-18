@@ -32,15 +32,15 @@ TOURNAMENT_MENU = {
     },
     '2': {
         'text': '2 - Liste de tous les tournois',
-        'action': 'view_tournament'
+        'action': 'list_tournaments'
     },
     '3': {
         'text': '3 - Nom et dates d’un tournoi donné',
-        'action': ''
+        'action': 'get_info_tournament'
     },
     '4': {
         'text': '4 - Liste des joueurs du tournoi par ordre alphabétique',
-        'action': ''
+        'action': 'get_players_by_tournament'
     },
     '5': {
         'text': '5 - Liste de tous les tours du tournoi et de tous les matchs du tour',
