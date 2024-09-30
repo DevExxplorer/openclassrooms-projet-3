@@ -35,11 +35,3 @@ class Player:
         except Exception as e:
             return {'success': False, 'message': f'Erreur : {e}'}
 
-    @staticmethod
-    def get_name_by_id_chess(chess_id):
-        list_players = Player.read()
-
-        for player in list_players:
-            if player['chess_id'] == chess_id:
-                return player['lastname']
-        return "Joueur introuvable"

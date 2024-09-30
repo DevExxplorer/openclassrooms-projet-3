@@ -36,7 +36,7 @@ TOURNAMENT_MENU = {
     },
     '3': {
         'text': '3 - Nom et dates d’un tournoi donné',
-        'action': 'get_info_tournament'
+        'action': 'get_dates_tournament2'
     },
     '4': {
         'text': '4 - Liste des joueurs du tournoi par ordre alphabétique',
@@ -47,7 +47,11 @@ TOURNAMENT_MENU = {
         'action': ''
     },
     '6': {
-        'text': '6 - Retour au menu précédent',
+        'text': '6 - Démarrer un tournoi / Passer au round suivant',
+        'action': 'start_tournament'
+    },
+    '7': {
+        'text': '7 - Retour au menu précédent',
         'action': 'menu_back'
     },
 }

@@ -39,6 +39,20 @@ class TournamentsViews:
         # print(tabulate(body, headers=headers, tablefmt="double_grid"))
 
     @staticmethod
+    def view_start_tournament():
+        name_tournament = input('Nom du tournoi que vous souhaitez démarrer ou passer au round suivant: ')
+        return name_tournament
+
+    @staticmethod
+    def view_round(data_current_round):
+        print(f'\nRound {data_current_round} \n')
+
+    @staticmethod
     def message_user(message):
         print(message)
 
+    @staticmethod
+    def result_match(players):
+        print(f'{players[0]['name_player']} vs {players[1]['name_player']}')
+        result = input(f"Résultat du joueur {players[0]['name_player']} [1: Victoire / 0.5: Match nul / 0: Défaite]: ")
+        return result

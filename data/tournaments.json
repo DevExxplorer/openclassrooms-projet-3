@@ -1,31 +1,282 @@
 [
     {
-        "name": "Master de Miami",
+        "name": "Test",
         "place": "Miami",
         "dates": [
-            "21/08/2024",
-            "23/08/2024"
+            "12/11/2024",
+            "15/11/2024"
         ],
         "number_round": 4,
         "players": [
-            "COMTE",
-            "Lecorre"
+            "BERNARD Hugo",
+            "COMTE Lou",
+            "DUPONT Marie",
+            "LEROY Chloé"
         ],
-        "description": "test description"
+        "description": "TEST",
+        "current_round": 1,
+        "ranking": [
+            {
+                "name": "BERNARD Hugo",
+                "score": 0.0,
+                "already_played": []
+            },
+            {
+                "name": "COMTE Lou",
+                "score": 0.0,
+                "already_played": []
+            },
+            {
+                "name": "DUPONT Marie",
+                "score": 0.0,
+                "already_played": []
+            },
+            {
+                "name": "LEROY Chloé",
+                "score": 0.0,
+                "already_played": []
+            }
+        ],
+        "rounds": [
+            {
+                "name": "Round 1",
+                "matches": [
+                    [
+                        "BERNARD Hugo",
+                        "COMTE Lou"
+                    ],
+                    [
+                        "DUPONT Marie",
+                        "LEROY Chloé"
+                    ]
+                ]
+            },
+            {
+                "name": "Round 2",
+                "matches": []
+            },
+            {
+                "name": "Round 3",
+                "matches": []
+            },
+            {
+                "name": "Round 4",
+                "matches": []
+            }
+        ]
     },
     {
-        "name": "Master de Paris",
-        "place": "Paris",
+        "name": "lou",
+        "place": "dfdf",
         "dates": [
-            "21/08/2024",
-            "23/08/2024"
+            "12/04/2024",
+            "15/04/2024"
         ],
-        "number_round": 6,
+        "number_round": 4,
         "players": [
-            "COMTE",
-            "Lecorre",
-            "RAYMOND"
+            "IJ67890",
+            "AB56789",
+            "CD12345",
+            "GH54321"
         ],
-        "description": "test description"
+        "description": "ddf",
+        "status": {
+            "current_round": 4,
+            "rounds": [
+                {
+                    "name": "Round 1",
+                    "matches": [
+                        {
+                            "name": "Match 1",
+                            "date": "29/09/2024",
+                            "match": [
+                                {
+                                    "id_player": "IJ67890",
+                                    "name_player": "BERNARD Hugo"
+                                },
+                                {
+                                    "id_player": "AB56789",
+                                    "name_player": "COMTE Lou"
+                                }
+                            ],
+                            "winner": [
+                                {
+                                    "id_player": "IJ67890",
+                                    "name_player": "BERNARD Hugo"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Match 2",
+                            "date": "29/09/2024",
+                            "match": [
+                                {
+                                    "id_player": "CD12345",
+                                    "name_player": "DUPONT Marie"
+                                },
+                                {
+                                    "id_player": "GH54321",
+                                    "name_player": "LEROY Chloé"
+                                }
+                            ],
+                            "winner": [
+                                {
+                                    "id_player": "CD12345",
+                                    "name_player": "DUPONT Marie"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Round 2",
+                    "matches": [
+                        {
+                            "name": "Match 1",
+                            "date": "29/09/2024",
+                            "match": [
+                                {
+                                    "id_player": "IJ67890",
+                                    "name_player": "BERNARD Hugo"
+                                },
+                                {
+                                    "id_player": "CD12345",
+                                    "name_player": "DUPONT Marie"
+                                }
+                            ],
+                            "winner": [
+                                {
+                                    "id_player": "CD12345",
+                                    "name_player": "DUPONT Marie"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Match 2",
+                            "date": "29/09/2024",
+                            "match": [
+                                {
+                                    "id_player": "AB56789",
+                                    "name_player": "COMTE Lou"
+                                },
+                                {
+                                    "id_player": "GH54321",
+                                    "name_player": "LEROY Chloé"
+                                }
+                            ],
+                            "winner": [
+                                {
+                                    "id_player": "GH54321",
+                                    "name_player": "LEROY Chloé"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Round 3",
+                    "matches": [
+                        {
+                            "name": "Match 1",
+                            "date": "29/09/2024",
+                            "match": [
+                                {
+                                    "id_player": "CD12345",
+                                    "name_player": "DUPONT Marie"
+                                },
+                                {
+                                    "id_player": "AB56789",
+                                    "name_player": "COMTE Lou"
+                                }
+                            ],
+                            "winner": [
+                                {
+                                    "id_player": "AB56789",
+                                    "name_player": "COMTE Lou"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "Match 2",
+                            "date": "29/09/2024",
+                            "match": [
+                                {
+                                    "id_player": "IJ67890",
+                                    "name_player": "BERNARD Hugo"
+                                },
+                                {
+                                    "id_player": "GH54321",
+                                    "name_player": "LEROY Chloé"
+                                }
+                            ],
+                            "winner": [
+                                {
+                                    "id_player": "GH54321",
+                                    "name_player": "LEROY Chloé"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Round 4",
+                    "matches": []
+                }
+            ],
+            "ranking": [
+                {
+                    "id_player": "CD12345",
+                    "score": 2.0,
+                    "already_played": [
+                        "GH54321",
+                        "IJ67890",
+                        "AB56789"
+                    ]
+                },
+                {
+                    "id_player": "GH54321",
+                    "score": 2.0,
+                    "already_played": [
+                        "CD12345",
+                        "AB56789",
+                        "IJ67890"
+                    ]
+                },
+                {
+                    "id_player": "IJ67890",
+                    "score": 1.0,
+                    "already_played": [
+                        "AB56789",
+                        "CD12345",
+                        "GH54321"
+                    ]
+                },
+                {
+                    "id_player": "AB56789",
+                    "score": 1.0,
+                    "already_played": [
+                        "IJ67890",
+                        "GH54321",
+                        "CD12345"
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "name": "loulou",
+        "place": "hidhf",
+        "dates": [
+            "12/04/2024",
+            "15/04/2024"
+        ],
+        "number_round": 4,
+        "players": [
+            "IJ67890",
+            "AB56789",
+            "CD12345",
+            "GH54321"
+        ],
+        "description": "jnjg"
     }
 ]

@@ -1,54 +1,71 @@
-"""
 import random
+
 from models.match import Match
 
 
 class Round:
-    def __init__(self, list_players):
-        self.list_players = list_players
+    def __init__(self, data):
+        self.data = data
 
-    def start_round(self):
-        self.create_matches()
-        self.list_players = self.list_player_by_score()
+    def create(self):
+        ranking = self.generate_ranking()
 
-    def end_round(self):
-        self.list_players = self.list_player_by_score()
-        self.display_score()
+        # Création des matchs du premier round
+        match_class = Match(self.data)
+        matches = match_class.create(ranking)
 
-    def create_matches(self):
-        unpaired_players = [player['name'] for player in self.list_players]
+        # Création des rounds a venir
+        rounds_list = []
+        for index in range(self.data['number_round']):
+            rounds_list.append({
+                'name': 'Round ' + str(index + 1),
+                'matches': matches if index == 0 else []
+            })
 
+        # Creation du tableau contenant les données du tournoi
+        new_data = dict()
+        new_data['status'] = {
+            'current_round': 1,
+            'rounds': rounds_list,
+            'ranking': ranking
+        }
 
+        # Ajout des données
+        self.data.update(new_data)
 
-        unpaired_players = [player['name'] for player in self.list_players]
-        for i in range(0, len(self.list_players), 2):
-            if i + 1 < len(self.list_players):
-                player1 = self.list_players[i]
-                player2 = self.list_players[i + 1]
+    def read(self):
+        return self.data
 
-                if player1['name'] in player2['already_played']:
-                    player2 = random.choice(unpaired_players)
-                    print(f'Déjà joué contre {player2}')
+    def update(self, result_match):
+        match_class = Match(self.data)
+        match_class.update(result_match)
+        self.order_ranking()
+        self.generate_next_round(match_class)
+        return self.data
 
-    def list_player_by_score(self):
-        return sorted(self.list_players, key=lambda x: x['score'], reverse=True)
+    def generate_next_round(self, match_class):
+        ranking = self.data['status']['ranking']
+        next_round = self.data['status']['current_round']
 
-    def mix_players(self):
-        return random.sample(self.list_players, len(self.list_players))
+        self.data['status']['rounds'][next_round]['matches'] = match_class.create(ranking)
 
-    def display_score(self):
-        print('Classement:')
-        for pos in range(len(self.list_players)):
-            print(f'{pos} - {self.list_players[pos]['name']} avec {self.list_players[pos]['score']} point(s)')
+    # Génére le tableau de classement du tournoi
+    def generate_ranking(self):
+        data = []
+        for player_index in range(len(self.data['players'])):
+            data.append({
+                'id_player': self.data['players'][player_index],
+                'score': 0.0,
+                'already_played': []
+            })
+        return data
 
-            
-                     # match = Match(self.list_players)
-                    # match.play()
+    # Retourne une liste des joueurs mélangés aléatoirement
+    @staticmethod
+    def mix_players(players):
+        return random.sample(players, len(players))
 
-                    # match_number = 1
-                    for i in range(0, len(self.list_players), 2):
-                        if i + 1 < len(self.list_players):
-                            match = Match(self.list_players, self.list_players[i], self.list_players[i + 1], match_number)
-                            match.play()
-                            match_number += 1
-"""
+    # Mise a jour des classement
+    def order_ranking(self):
+        sorted_results = sorted(self.data['status']['ranking'], key=lambda x: x['score'], reverse=True)
+        self.data['status']['ranking'] = sorted_results

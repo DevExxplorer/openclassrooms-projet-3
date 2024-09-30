@@ -33,7 +33,7 @@ class InputValidator:
 
     @staticmethod
     def validate_date(input_data):
-        dates_event = input_data['value'].replace(' ', '').split(',')
+        dates_event = InputValidator.transform_value_input(input_data)
         try:
             date1 = datetime.strptime(dates_event[0], '%d/%m/%Y')
             date2 = datetime.strptime(dates_event[1], '%d/%m/%Y')
@@ -61,13 +61,12 @@ class InputValidator:
     @staticmethod
     def validate_list(input_data):
         list_players_check = []
-        list_players_input = input_data['value'].replace(' ', '').split(',')
+        list_players_input = InputValidator.transform_value_input(input_data)
 
         for player in list_players_input:
             check_chess_id = InputValidator.check_chess_id(player)
             if player not in list_players_check and check_chess_id['success']:
-                name_player = Player.get_name_by_id_chess(player)
-                list_players_check.append(name_player)
+                list_players_check.append(player)
 
         if list_players_check:
             input_data['value'] = list_players_check
@@ -90,3 +89,14 @@ class InputValidator:
             data['message'] = ERROR_MSG['chess_id']
 
         return data
+
+    @staticmethod
+    def transform_value_input(input_data):
+        if isinstance(input_data['value'], str):
+            return input_data['value'].replace(' ', '').split(',')
+        elif isinstance(input_data['value'], list):
+            return input_data['value']
+        else:
+            input_data['valid'] = False
+            input_data['error'] = 'Erreur: Format de date non reconnu.'
+            return input_data

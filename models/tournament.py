@@ -1,16 +1,17 @@
 import json
 import os
 
+
 FILENAME = "tournaments.json"
 
 
 class Tournament:
     def create(self, data):
+        # Vérifie que le dossier data existe
         if not os.path.isdir('data'):
             os.mkdir('data')
 
         list_tournament = self.read()
-
         result = {tournament['slug']: tournament['value'] for tournament in data}
         list_tournament.append(result)
 
@@ -36,24 +37,25 @@ class Tournament:
 
         return []
 
-    def get_tournament_by_name(self, name_tournament):
+    def update(self, name_tournament, new_data):
         list_tournament = self.read()
+        updated = False
 
+        # Parcours de la liste des tournois pour trouver celui à mettre à jour
         for tournament in list_tournament:
             if tournament['name'] == name_tournament:
-                return tournament
-        return 'Le tournoi n\'existe pas'
+                tournament.update(new_data)
+                updated = True
+                break
 
+        if updated:
+            try:
+                # Mise à jour du fichier JSON avec les nouvelles données
+                with open("data/" + FILENAME, "w", encoding="utf-8") as file:
+                    json.dump(list_tournament, file, ensure_ascii=False, indent=4)
+                return {'success': True, 'message': 'Le tournoi a bien été mis à jour'}
+            except Exception as e:
+                return {'success': False, 'message': f'Erreur lors de la mise à jour : {e}'}
+        else:
+            return {'success': False, 'message': 'Le tournoi spécifié n\'existe pas'}
 
-    """  
-        def start_tournament(self):
-            while self.current_round <= self.number_round:
-                print(f'\nTour {self.current_round}:\n')
-    
-                round_tournament = Round(self.list_players)
-                round_tournament.start_round()
-                round_tournament.end_round()
-    
-                input('\nPasser au prochain round (Appuyer sur n\'importe qu\'elle touche: ')
-                self.current_round = self.current_round + 1
-    """
