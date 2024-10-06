@@ -1,4 +1,5 @@
 from datetime import datetime
+from pprint import pprint
 
 from models.match import Match
 from utils.constants import *
@@ -21,7 +22,7 @@ class TournamentManager:
 
         # Validation de ses données
         self.data = InputValidator(self.data).validate()
-
+        print(self.data)
 
         # Vérification que tous les input_data['valid'] soit True
         if all(input_data['valid'] for input_data in self.data):
@@ -68,8 +69,7 @@ class TournamentManager:
     # On commence le tournoi ou on passe au round suivant
     @staticmethod
     def start_tournament():
-        tournaments_views = TournamentsViews()
-        name_tournament = tournaments_views.view_start_tournament()
+        name_tournament = TournamentsViews().view_start_tournament()
 
         tournament_data = TournamentManager.get_tournament_by_name(name_tournament)
         if tournament_data is not False:
@@ -83,7 +83,7 @@ class TournamentManager:
                 TournamentManager.start_round(round_class, name_tournament)
 
         else:
-            tournaments_views.message_user('Le tournoi n\'existe pas')
+            TournamentsViews().message_user('Le tournoi n\'existe pas')
             TournamentManager.start_tournament()
 
     @staticmethod
@@ -172,3 +172,53 @@ class TournamentManager:
 
     def menu_back(self):
         self.menu_manager.main_menu()
+
+    @staticmethod
+    def list_rounds():
+        name_tournament = TournamentsViews().view_start_tournament()
+        tournament_data = TournamentManager.get_tournament_by_name(name_tournament)
+
+        if tournament_data is not False:
+            for round_data in tournament_data['status']['rounds']:
+                TournamentsViews().message_user(round_data['name'])
+
+                if round_data['matches']:
+                    list_keys = ['Match', 'Date', 'Joueurs', 'Gagnant']
+                    list_body = []
+
+                    for match_data in round_data['matches']:
+                        winner = ''
+                        match_players = match_data['match'][0]['name_player'] + ' vs ' + match_data['match'][1]['name_player']
+
+                        # Vérification si c'est un match nul
+                        if len(match_data['winner']) == 1:
+                            winner = match_data['winner'][0]['name_player']
+                        elif len(match_data['winner']) == 2:
+                            winner = "Match nul"
+
+                        list_body.append([
+                            match_data['name'],
+                            match_data['date'],
+                            match_players,
+                            winner
+                        ])
+
+                    headers = list(list_keys)
+                    TournamentsViews().view_list(headers, list_body)
+                else:
+                    TournamentsViews().message_user('Les matchs ont déjà tous été joués')
+
+                    # print(match_data)
+            """ 
+            body = [list(tournament.values()) for tournament in tournaments_data]
+            TournamentsViews().view_list(headers, body)
+
+            if active_menu:
+            self.menu_manager.submenu_init()"""
+        else:
+            TournamentsViews().message_user('Le tournoi n\'existe pas')
+            TournamentManager.list_rounds()
+
+#TODO : Gerer si il y a que 1 date
+#TODO : Voir pourquoi le tournoi ne s'est pas ajouté correctement
+#Ajouter un ID pour les tournois

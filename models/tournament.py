@@ -14,7 +14,7 @@ class Tournament:
         list_tournament = self.read()
         result = {tournament['slug']: tournament['value'] for tournament in data}
         list_tournament.append(result)
-
+        print(list_tournament)
         try:
             with open("data/" + FILENAME, "w", encoding="utf-8") as file:
                 json.dump(list_tournament, file, ensure_ascii=False, indent=4)

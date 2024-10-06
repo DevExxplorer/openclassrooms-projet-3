@@ -44,7 +44,7 @@ TOURNAMENT_MENU = {
     },
     '5': {
         'text': '5 - Liste de tous les tours du tournoi et de tous les matchs du tour',
-        'action': ''
+        'action': 'list_rounds'
     },
     '6': {
         'text': '6 - Démarrer un tournoi / Passer au round suivant',
