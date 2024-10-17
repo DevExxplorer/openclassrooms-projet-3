@@ -1,4 +1,4 @@
-from utils.constants import *
+from utils.constants import SELECTED_MESSAGE, ERROR_MENU
 
 
 class MenusView:
@@ -12,7 +12,7 @@ class MenusView:
 
     def template_menu(self):
         for option in self.menu:
-            print(f'{self.menu[option]['text']}')
+            print(f'{self.menu[option]["text"]}')
 
     @staticmethod
     def view_error():

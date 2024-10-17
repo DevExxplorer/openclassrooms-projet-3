@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from utils.constants import *
+from utils.constants import NEW_PLAYER, BOLD, RESET, RED, GREEN
 
 
 class PlayersViews:
@@ -8,19 +8,14 @@ class PlayersViews:
         print(tabulate(body, headers=headers, tablefmt="double_grid"))
 
     @staticmethod
-    def players_view_create():
+    def players_view_create(data):
         print(NEW_PLAYER)
-        lastname = input('Nom: ')
-        firstname = input('Prénom: ')
-        birthday = input('Date d\'anniversaire (format: JJ/MM/AAAA): ')
-        chess_id = input('Identifiant national d’échecs: ')
 
-        return {
-            'lastname': lastname,
-            'firstname': firstname,
-            'birthday': birthday,
-            'chess_id': chess_id
-        }
+        for input_data in data:
+            if not input_data['valid']:
+                input_data['value'] = input(f'{input_data["name"]}: ').strip()
+
+        return data
 
     @staticmethod
     def message_player(type_message, message):

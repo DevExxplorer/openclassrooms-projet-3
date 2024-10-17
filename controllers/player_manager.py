@@ -1,66 +1,62 @@
 from views.players_views import PlayersViews
+from utils.input_validator import InputValidator
 from models.player import Player
-from datetime import datetime
-from utils.constants import *
-import re
+from utils.constants import INPUTS_PLAYERS, VALIDATION_PLAYER
 
 
 class PlayerManager:
     def __init__(self, menu_manager):
         self.menu_manager = menu_manager
-        self.success = False
-        self.errors_message = []
+        self.data = INPUTS_PLAYERS
 
     def create_player(self):
         player_view = PlayersViews()
-        data_new_player = player_view.players_view_create()
-        self.check_birthday_date(data_new_player['birthday'])
-        self.check_chess_id(data_new_player['chess_id'])
 
-        if not self.success:
-            for error in self.errors_message:
-                player_view.message_player('error', error)
-            self.errors_message.clear()
-            self.create_player()
+        # Affichage et récupération des inputs de la vue
+        self.data = player_view.players_view_create(self.data)
+
+        # Validation de ses données
+        self.data = InputValidator(self.data).validate()
+
+        # Vérification que tous les input_data['valid'] soit True
+        if all(input_data['valid'] for input_data in self.data):
+            tournament_class = Player()
+            response = tournament_class.create(self.data)
+
+            if response['success']:
+                player_view.message_player('validate', VALIDATION_PLAYER)
+
+                self.menu_manager.submenu_init()
         else:
-            data = Player().create(data_new_player)
-            type_message = 'validate' if data['success'] else 'error'
-            player_view.message_player(type_message, data['message'])
-
-            self.menu_manager.submenu_init()
-
-    def check_birthday_date(self, birthday_date):
-        try:
-            datetime.strptime(birthday_date, '%d/%m/%Y')
-            self.success = True
-            return
-        except ValueError:
-            self.errors_message.append("Erreur: le format de la date est incorrect. Utilisez JJ/MM/AAAA.")
-
-    def check_chess_id(self, chess_id):
-        try:
-            check_chess_id = re.search("^[A-Z]{2}[0-9]{5}$", chess_id)
-            if check_chess_id:
-                self.success = True
-                return
-            else:
-                self.errors_message.append('Erreur: L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres')
-        except ValueError:
-            self.errors_message.append('Erreur: L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres')
+            # Gestion des erreurs des inputs
+            for input_data in self.data:
+                if not input_data['valid']:
+                    print(f"Erreur: {input_data.get('error', 'Invalide')}")
+                    self.create_player()
 
     def view_players(self, active_menu=True):
         players_data = Player().read()
 
         headers = []
-        keys = list(players_data[0].keys())
-        for key in keys:
-            if key in TRANSLATE:
-                headers.append(TRANSLATE[key])
+        for input_player in INPUTS_PLAYERS:
+            headers.append(input_player['name'])
         body = [list(player.values()) for player in players_data]
         PlayersViews().players_view_list(headers, body)
 
-        if not active_menu:
+        if active_menu:
             self.menu_manager.submenu_init()
+
+    @staticmethod
+    def get_list_players_by_tournament(data_tournament):
+        data = []
+        players_data = Player().read()
+
+        for player_tournament in data_tournament['players']:
+            for player in players_data:
+                if player['chess_id'] == player_tournament:
+                    data.append(player)
+
+        return data
 
     def menu_back(self):
         self.menu_manager.main_menu()

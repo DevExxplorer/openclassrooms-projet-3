@@ -1,4 +1,4 @@
-from utils.constants import *
+from utils.constants import BLUE, BOLD, UNDERLINE, MESSAGE_MENU, RESET, MAIN_MENU
 from controllers.menu_manager import MenuManager
 
 

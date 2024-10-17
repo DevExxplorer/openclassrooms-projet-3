@@ -11,6 +11,7 @@ SELECTED_MESSAGE = f'\n{BLUE}{BOLD}Veuillez séléctionner votre choix parmi les
 NEW_PLAYER = f'\n{UNDERLINE}Ajout d\'un nouveau joueur{RESET}\n'
 NEW_TOURNAMENT = f'\n{UNDERLINE}Ajout d\'un nouveau tournoi{RESET}'
 VALIDATION_TOURNAMENT = f'\n{GREEN}Le nouveau tournoi a bien été créé{RESET}'
+VALIDATION_PLAYER = f'\n{GREEN}Le nouveau joueur a bien été créé{RESET}'
 PLAYER_MENU = {
     '1': {
         'text': '1 - Création d\'un nouveau joueur',
@@ -36,7 +37,7 @@ TOURNAMENT_MENU = {
     },
     '3': {
         'text': '3 - Nom et dates d’un tournoi donné',
-        'action': 'get_dates_tournament2'
+        'action': 'get_dates_tournament'
     },
     '4': {
         'text': '4 - Liste des joueurs du tournoi par ordre alphabétique',
@@ -67,15 +68,35 @@ MAIN_MENU = {
         'submenu': TOURNAMENT_MENU
     }
 }
-TRANSLATE = {
-    'lastname': 'Nom',
-    'firstname': 'Prénom',
-    'birthday': 'Anniversaire',
-    'chess_id': 'Identifiant national d\'échec'
-}
 ERROR_MSG = {
     'chess_id': 'Erreur: L\'Identifiant national d’échecs doit avoir deux lettres et 5 chiffres'
 }
+INPUTS_PLAYERS = [
+    {
+        'name': 'Nom',
+        'slug': 'lastname',
+        'type': 'text',
+        'valid': False
+    },
+    {
+        'name': 'Prénom',
+        'slug': 'firstname',
+        'type': 'text',
+        'valid': False
+    },
+    {
+        'name': 'Date d\'anniversaire (DD/MM/YYYY)',
+        'slug': 'dates',
+        'type': 'date_birthday',
+        'valid': False
+    },
+    {
+        'name': 'Identifiant National d’échecs',
+        'slug': 'chess_id',
+        'type': 'chess_id',
+        'valid': False
+    },
+]
 INPUTS_TOURNAMENT = [
     {
         'name': 'Nom',

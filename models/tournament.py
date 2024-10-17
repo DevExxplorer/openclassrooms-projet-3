@@ -14,13 +14,10 @@ class Tournament:
         list_tournament = self.read()
         result = {tournament['slug']: tournament['value'] for tournament in data}
         list_tournament.append(result)
-        print(list_tournament)
-        try:
-            with open("data/" + FILENAME, "w", encoding="utf-8") as file:
-                json.dump(list_tournament, file, ensure_ascii=False, indent=4)
-                return {'success': True, 'message': 'Le nouveau tournoi a bien été créé'}
-        except Exception as e:
-            return {'success': False, 'message': f'Erreur : {e}'}
+
+        with open("data/" + FILENAME, "w", encoding="utf-8") as file:
+            json.dump(list_tournament, file, ensure_ascii=False, indent=4)
+            return {'success': True, 'message': 'Le nouveau tournoi a bien été créé'}
 
     @staticmethod
     def read():
@@ -37,13 +34,13 @@ class Tournament:
 
         return []
 
-    def update(self, name_tournament, new_data):
+    def update(self, data_tournament, new_data):
         list_tournament = self.read()
         updated = False
 
         # Parcours de la liste des tournois pour trouver celui à mettre à jour
         for tournament in list_tournament:
-            if tournament['name'] == name_tournament:
+            if tournament['id_tournament'] == int(data_tournament['id_tournament']):
                 tournament.update(new_data)
                 updated = True
                 break
@@ -58,4 +55,3 @@ class Tournament:
                 return {'success': False, 'message': f'Erreur lors de la mise à jour : {e}'}
         else:
             return {'success': False, 'message': 'Le tournoi spécifié n\'existe pas'}
-

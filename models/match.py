@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from models.player import Player
 
 
@@ -35,7 +33,6 @@ class Match:
 
         # Mise à jour des données du match
         self.update_data_match(result)
-        print(result)
         # Mise à jour des données de ranking
         self.increment_score(self, players, point)
         self.add_already_played(result['players'])

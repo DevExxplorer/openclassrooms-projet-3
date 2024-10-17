@@ -1,6 +1,5 @@
-from utils.constants import *
+from utils.constants import ERROR_MSG
 from datetime import datetime
-from models.player import Player
 import re
 
 
@@ -13,6 +12,8 @@ class InputValidator:
             'date': self.validate_date,
             'number': self.validate_number,
             'list': self.validate_list,
+            'date_birthday': self.validate_date_birthday,
+            'chess_id': self.validate_chess_id
         }
 
         for input_data in self.data:
@@ -35,14 +36,18 @@ class InputValidator:
     def validate_date(input_data):
         dates_event = InputValidator.transform_value_input(input_data)
         try:
-            date1 = datetime.strptime(dates_event[0], '%d/%m/%Y')
-            date2 = datetime.strptime(dates_event[1], '%d/%m/%Y')
-            if date1 > date2:
-                input_data['valid'] = False
-                input_data['error'] = 'Erreur: La date de fin se termine avant la date de début'
+            if len(dates_event) > 1:
+                date1 = datetime.strptime(dates_event[0], '%d/%m/%Y')
+                date2 = datetime.strptime(dates_event[1], '%d/%m/%Y')
+                if date1 > date2:
+                    input_data['valid'] = False
+                    input_data['error'] = 'Erreur: La date de fin se termine avant la date de début'
+                else:
+                    input_data['valid'] = True
+                    input_data['value'] = dates_event
             else:
-                input_data['valid'] = True
-                input_data['value'] = dates_event
+                input_data['valid'] = False
+                input_data['error'] = 'Erreur: le format des dates est incorrect. Utilisez JJ/MM/AAAA.'
         except ValueError:
             input_data['error'] = 'Erreur: le format des dates est incorrect. Utilisez JJ/MM/AAAA.'
 
@@ -80,7 +85,6 @@ class InputValidator:
             'success': False,
             'message': ERROR_MSG['chess_id']
         }
-
         try:
             check_chess_id = re.search("^[A-Z]{2}[0-9]{5}$", chess_id)
             if check_chess_id:
@@ -100,3 +104,30 @@ class InputValidator:
             input_data['valid'] = False
             input_data['error'] = 'Erreur: Format de date non reconnu.'
             return input_data
+
+    @staticmethod
+    def validate_date_birthday(input_data):
+        date_birthday = InputValidator.transform_value_input(input_data)
+
+        try:
+            date_obj = datetime.strptime(date_birthday[0], '%d/%m/%Y')
+            input_data['valid'] = True
+            input_data['value'] = date_obj.strftime('%d/%m/%Y')
+        except ValueError:
+            input_data['error'] = 'Erreur: le format des dates est incorrect. Utilisez JJ/MM/AAAA.'
+
+        return input_data
+
+    @staticmethod
+    def validate_chess_id(input_data):
+        try:
+            check_chess_id = re.search("^[A-Z]{2}[0-9]{5}$", input_data['value'])
+            if check_chess_id:
+                input_data['valid'] = True
+                input_data['value'] = input_data['value']
+            else:
+                input_data['error'] = ERROR_MSG['chess_id']
+        except ValueError:
+            input_data['error'] = ERROR_MSG['chess_id']
+
+        return input_data

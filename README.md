@@ -1,3 +1,27 @@
+# Openclassrooms - Projet 3 : Développez un programme logiciel en Python
+***
+***
+
+## Description
+***
+Ce projet est une application d'organisation de tournoi d'échecs
+
+## Installation
+***
+Activez l'environnement et installez les packages à l'aide du fichier requirements.txt :
+```
+$ python -m venv <environment name>
+$ source <environment name>/bin/activate
+$ pip install -r requirements.txt
+```
+
+## Utilisation
+***
+Pour lancer l'application:
+```
+$ python main.py
+```
+
 ### Flake8
 
 #### Utilisation
