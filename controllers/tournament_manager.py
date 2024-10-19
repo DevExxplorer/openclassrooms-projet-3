@@ -72,7 +72,10 @@ class TournamentManager:
     def get_info_tournament(self):
         self.list_tournaments(active_menu=False)
         id_tournament = TournamentsViews().input_info_tournament()
-        return self.get_tournament_by_name(id_tournament)
+        if self.get_tournament_by_name(id_tournament):
+            return self.get_tournament_by_name(id_tournament)
+        else:
+            return False
 
     def get_dates_tournament(self):
         data_tournament = self.get_info_tournament()
@@ -82,7 +85,11 @@ class TournamentManager:
 
     def get_players_by_tournament(self):
         data_tournament = self.get_info_tournament()
-        TournamentsViews().view_players_tournament(data_tournament)
+
+        if data_tournament:
+            TournamentsViews().view_players_tournament(data_tournament)
+        else:
+            TournamentsViews().message_user('Le tournoi n\'existe pas')
 
         self.menu_manager.submenu_init()
 
@@ -185,7 +192,7 @@ class TournamentManager:
         list_tournament = Tournament().read()
 
         for tournament in list_tournament:
-            if tournament['id_tournament'] == int(id_tournament):
+            if isinstance(id_tournament, int) and tournament['id_tournament'] == int(id_tournament):
                 return tournament
         return False
 
