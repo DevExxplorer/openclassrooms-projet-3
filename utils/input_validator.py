@@ -4,10 +4,22 @@ import re
 
 
 class InputValidator:
+    """
+        Class qui permet de valider les champs Input
+    """
     def __init__(self, data):
+        """
+            Constructs
+
+            Parameters
+                data(Array): Données des champs Inputs
+        """
         self.data = data
 
     def validate(self):
+        """
+            Redirige chaque champ Input vers la bonne fonction
+        """
         validators = {
             'date': self.validate_date,
             'number': self.validate_number,
@@ -34,6 +46,9 @@ class InputValidator:
 
     @staticmethod
     def validate_date(input_data):
+        """
+           Validation du champs Dates des tournois
+        """
         dates_event = InputValidator.transform_value_input(input_data)
         try:
             if len(dates_event) > 1:
@@ -55,6 +70,9 @@ class InputValidator:
 
     @staticmethod
     def validate_number(input_data):
+        """
+           Validation du champs Nombre
+        """
         try:
             input_data['value'] = int(input_data['value'])
             input_data['valid'] = True
@@ -65,6 +83,9 @@ class InputValidator:
 
     @staticmethod
     def validate_list(input_data):
+        """
+           Validation du champs List
+        """
         list_players_check = []
         list_players_input = InputValidator.transform_value_input(input_data)
 
@@ -81,6 +102,9 @@ class InputValidator:
 
     @staticmethod
     def check_chess_id(chess_id):
+        """
+           Validation du champs Chess ID
+        """
         data = {
             'success': False,
             'message': ERROR_MSG['chess_id']
@@ -96,6 +120,9 @@ class InputValidator:
 
     @staticmethod
     def transform_value_input(input_data):
+        """
+            Filtre les champs avec des "," pour ne récupérer que les valeurs
+        """
         if isinstance(input_data['value'], str):
             return input_data['value'].replace(' ', '').split(',')
         elif isinstance(input_data['value'], list):
@@ -107,6 +134,9 @@ class InputValidator:
 
     @staticmethod
     def validate_date_birthday(input_data):
+        """
+            Validation du champs Date d'anniversaire
+        """
         date_birthday = InputValidator.transform_value_input(input_data)
 
         try:
@@ -120,6 +150,9 @@ class InputValidator:
 
     @staticmethod
     def validate_chess_id(input_data):
+        """
+           Validation du champs Identification National d'echecs
+        """
         try:
             check_chess_id = re.search("^[A-Z]{2}[0-9]{5}$", input_data['value'])
             if check_chess_id:

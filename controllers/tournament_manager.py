@@ -1,6 +1,5 @@
 from datetime import datetime
 from random import sample
-
 from models.match import Match
 from utils.constants import INPUTS_TOURNAMENT, VALIDATION_TOURNAMENT
 from utils.input_validator import InputValidator
@@ -10,11 +9,30 @@ from models.round import Round
 
 
 class TournamentManager:
+    """
+            Class permettant de gérer les fonctions vers lesquels renvoi le menu Tournoi
+
+            Attributes:
+
+            menu_manager(array) : Donnée du menu
+        """
     def __init__(self, menu_manager):
+        """
+              Constructeur du menu
+
+              Args:
+                  menu_manager(Array) : Données du menu
+        """
         self.menu_manager = menu_manager
         self.data = INPUTS_TOURNAMENT
 
     def create_tournament(self):
+        """
+               Création d'un nouveau tournoi
+               Validation des données en utilisant la class InputValidator
+
+               Si toutes les données sont valides le tournoi est crée et renvoi un message de validation
+       """
         tournaments_views = TournamentsViews()
 
         # Affichage et récupération des inputs de la vue
@@ -47,6 +65,12 @@ class TournamentManager:
                     self.create_tournament()
 
     def list_tournaments(self, active_menu=True):
+        """
+            Gestion des données Tournoi à envoyer à la view
+
+            Args:
+                active_menu(Bool) : Affichage ou non du menu
+        """
         tournaments_data = Tournament().read()
         body = []
         headers = ['Nom', 'Lieu', 'Description', 'Id']
@@ -70,6 +94,9 @@ class TournamentManager:
             self.menu_manager.submenu_init()
 
     def get_info_tournament(self):
+        """
+            Récupére les données d'un tournoi séléctionné par son ID
+        """
         self.list_tournaments(active_menu=False)
         id_tournament = TournamentsViews().input_info_tournament()
         if self.get_tournament_by_name(id_tournament):
@@ -78,12 +105,18 @@ class TournamentManager:
             return False
 
     def get_dates_tournament(self):
+        """
+           Renvoi l'affichage de la view
+       """
         data_tournament = self.get_info_tournament()
         TournamentsViews().view_info_tournament(data_tournament)
 
         self.menu_manager.submenu_init()
 
     def get_players_by_tournament(self):
+        """
+            Retourne le tableau qui affiche les joueur d'un tournoi séléctionné par son ID
+        """
         data_tournament = self.get_info_tournament()
 
         if data_tournament:
@@ -93,8 +126,10 @@ class TournamentManager:
 
         self.menu_manager.submenu_init()
 
-    # On commence le tournoi ou on passe au round suivant
     def start_tournament(self):
+        """
+            Lance un tournoi ou fait passer au round suivant
+        """
         tournament_data = self.get_info_tournament()
 
         if tournament_data is not False:
@@ -112,6 +147,13 @@ class TournamentManager:
             self.start_tournament()
 
     def start_round(self, round_class, tournament_data):
+        """
+            Démarre le round d'un tournoi
+
+            Args :
+                round_class(Round) : Classe de tournoi
+                tournament_data(Array) : Donnée du tournoi
+        """
         tournaments_views = TournamentsViews()
 
         # Envoi des données à la views
@@ -152,6 +194,16 @@ class TournamentManager:
 
     @staticmethod
     def get_result_match(match, round_class):
+        """
+            Récupére le résultat d'un match et le met à jour dans le fichier JSON
+
+            Args :
+                match(Array): Données du match
+                round_class(Round): Classe Round
+
+            Returns:
+                bool: True si match mis à jour
+        """
         tournaments_views = TournamentsViews()
         result_match = tournaments_views.result_match(match['match'])
         choices = ['0', '0.5', '1']
@@ -186,9 +238,14 @@ class TournamentManager:
             tournaments_views.message_user('La valeur entrée doit être 0, 0.5 ou 1')
             TournamentManager.get_result_match(match, round_class)
 
-    # On récupére des données du tournoi avec l'id de celui ci si il existe
     @staticmethod
     def get_tournament_by_name(id_tournament):
+        """
+            On récupére des données du tournoi avec l'id de celui ci si il existe
+
+            Args:
+                id_tournament(Number): Id du tournoi
+        """
         list_tournament = Tournament().read()
 
         for tournament in list_tournament:
@@ -197,9 +254,15 @@ class TournamentManager:
         return False
 
     def menu_back(self):
+        """
+           Fonction permettant un retour au menu principal
+        """
         self.menu_manager.main_menu()
 
     def list_rounds(self):
+        """
+            Affiche la liste des rounds et la met à jour dans le fichier JSON
+        """
         tournament_data = self.get_info_tournament()
 
         if tournament_data is not False:
@@ -247,6 +310,12 @@ class TournamentManager:
         self.menu_manager.submenu_init()
 
     def generate_id_tournament(self):
+        """
+            Génere un ID pour le tournoi et vérifie que celui n'existe pas encore
+
+            Returns:
+                id_tournament[0] (Number): Id du tournoi
+        """
         tournament_class = Tournament()
         tournaments = tournament_class.read()
         id_tournament = sample(range(1, 100), 1)

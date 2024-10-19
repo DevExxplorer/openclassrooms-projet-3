@@ -4,11 +4,20 @@ from tabulate import tabulate
 
 
 class TournamentsViews:
+    """
+        Vue des différents choix du menu Tournoi
+    """
     @staticmethod
     def view_list(headers, body):
+        """
+            Affichage de la liste des tournois
+        """
         print(tabulate(body, headers=headers, tablefmt="double_grid"))
 
     def view_create(self, data):
+        """
+            Affichage des champs pour la création d'un tournoi
+        """
         print(NEW_TOURNAMENT)
 
         for input_data in data:
@@ -25,10 +34,16 @@ class TournamentsViews:
         return input(f'{field_name}: ').strip()
 
     def input_info_tournament(self):
+        """
+            Affichage d'un champs input
+        """
         return self.get_user_input('Id du tournoi à afficher')
 
     @staticmethod
     def view_info_tournament(data_tournament):
+        """
+            Affichage des infos du tournoi
+        """
         print(f'\n{data_tournament["name"]}')
         print(
             f'Le tournoi se déroulera à {data_tournament["place"]} '
@@ -37,6 +52,9 @@ class TournamentsViews:
 
     @staticmethod
     def view_players_tournament(data_tournament):
+        """
+            Affichage de la liste des joueurs d'un tournoi
+        """
         data = PlayerManager.get_list_players_by_tournament(data_tournament)
         headers = []
         for input_player in INPUTS_PLAYERS:
@@ -46,6 +64,9 @@ class TournamentsViews:
 
     @staticmethod
     def view_start_tournament():
+        """
+            Affichage d'un input pour selectionné l'id d'un tournoi
+        """
         name_tournament = input('Id du tournoi que vous souhaitez démarrer ou passer au round suivant: ')
         return name_tournament
 
@@ -56,14 +77,28 @@ class TournamentsViews:
 
     @staticmethod
     def view_round(data_current_round):
+        """
+            Affichage nom du round
+        """
         print(f'\nRound {data_current_round} \n')
 
     @staticmethod
     def message_user(message):
+        """
+            Affichage message personnalisé
+
+            Parameters
+
+            message(str): Texte à afficher
+        """
         print(message)
 
     @staticmethod
     def result_match(players):
+        """
+            Affichage du match
+            et input pour séléctionner le resultat du match
+        """
         print(f'{players[0]["name_player"]} vs {players[1]["name_player"]}')
         result = input(f"Résultat du joueur {players[0]['name_player']} [1: Victoire / 0.5: Match nul / 0: Défaite]: ")
         return result

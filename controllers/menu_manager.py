@@ -4,11 +4,22 @@ from controllers.tournament_manager import TournamentManager
 
 
 class MenuManager:
+    """
+    Gestion des menus
+
+    Attributes:
+
+    menu : Array
+        Donnée des menus
+    """
     def __init__(self, menu):
         self.menu = menu
         self.selected_main_menu = ''
 
     def main_menu(self):
+        """
+            Affichage du premier menu
+        """
         menus_view = MenusView(self.menu)
         self.selected_main_menu = menus_view.view_main_menu()
 
@@ -19,6 +30,9 @@ class MenuManager:
             return self.main_menu()
 
     def submenu_init(self):
+        """
+            Affichage des menus secondaires
+        """
         submenu = self.menu[self.selected_main_menu]['submenu']
         menus_view = MenusView(submenu)
         submenu_selected = menus_view.view_main_menu()

@@ -6,8 +6,17 @@ FILENAME = "tournaments.json"
 
 
 class Tournament:
+    """
+         Gére l'envoi des données au fichier Json tournamnent.json
+    """
     def create(self, data):
-        # Vérifie que le dossier data existe
+        """
+            Création/Ajout des données JSON
+
+            Parameters
+
+            data(Array): Données à ajouter au fichier json
+        """
         if not os.path.isdir('data'):
             os.mkdir('data')
 
@@ -21,6 +30,9 @@ class Tournament:
 
     @staticmethod
     def read():
+        """
+            Lecture des données JSON
+        """
         file_path = os.path.join("data", FILENAME)
 
         if os.path.exists(file_path):
@@ -35,6 +47,14 @@ class Tournament:
         return []
 
     def update(self, data_tournament, new_data):
+        """
+            Mise à jour d'un tournoi dans le fichier Json
+
+            Parameters
+
+            data_tournament(Array) : Donnée du tournoi
+            new_data(Array) : Nouvelle donnée
+        """
         list_tournament = self.read()
         updated = False
 

@@ -5,8 +5,14 @@ FILENAME = "players.json"
 
 
 class Player:
+    """
+        Class Player pour gérer l'envoi des données au fichier Json player.json
+    """
     @staticmethod
     def read():
+        """
+            Lecture des données JSON
+        """
         file_path = os.path.join("data", FILENAME)
 
         if os.path.exists(file_path):
@@ -20,6 +26,17 @@ class Player:
 
     @staticmethod
     def create(data):
+        """
+            Création/Ajout des données JSON
+
+            Parameters
+
+            data(Array): Données à ajouter au fichier json
+        """
+        file_path = os.path.join("data", FILENAME)
+        if not os.path.exists(file_path):
+            os.mkdir('data')
+
         list_players = Player.read()
         result = {player['slug']: player['value'] for player in data}
         list_players.append(result)

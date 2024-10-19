@@ -5,11 +5,29 @@ from utils.constants import INPUTS_PLAYERS, VALIDATION_PLAYER
 
 
 class PlayerManager:
+    """
+        Class permettant de gérer les fonctions vers lesquels renvoi le menu Joueur
+
+        Attributes:
+
+        menu_manager(array) : Donnée du menu
+    """
     def __init__(self, menu_manager):
+        """
+        Constructeur du menu
+        Args:
+            menu_manager(Array) : Données du menu
+        """
         self.menu_manager = menu_manager
         self.data = INPUTS_PLAYERS
 
     def create_player(self):
+        """
+        Création d'un nouveau joueur
+        Validation des données en utilisant la class InputValidator
+
+        Si toutes les données sont valides le joueur est crée et renvoi un message de validation
+        """
         player_view = PlayersViews()
 
         # Affichage et récupération des inputs de la vue
@@ -35,6 +53,12 @@ class PlayerManager:
                     self.create_player()
 
     def view_players(self, active_menu=True):
+        """
+            Gestion des données Joueurs à envoyer à la view
+
+            Args:
+                active_menu(Bool) : Affichage ou non du menu
+        """
         players_data = Player().read()
 
         headers = []
@@ -48,6 +72,12 @@ class PlayerManager:
 
     @staticmethod
     def get_list_players_by_tournament(data_tournament):
+        """
+            Récupére la liste des joueurs dans un tournoi séléctionné
+
+            Args:
+                data_tournament(Array) : Liste des joueurs
+        """
         data = []
         players_data = Player().read()
 
@@ -59,4 +89,7 @@ class PlayerManager:
         return data
 
     def menu_back(self):
+        """
+            Fonction permettant un retour au menu principal
+        """
         self.menu_manager.main_menu()
