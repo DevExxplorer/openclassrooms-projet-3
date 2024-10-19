@@ -20,10 +20,6 @@ class Player:
 
     @staticmethod
     def create(data):
-        file_path = os.path.join("data", FILENAME)
-        if not os.path.exists(file_path):
-            os.mkdir('data')
-
         list_players = Player.read()
         result = {player['slug']: player['value'] for player in data}
         list_players.append(result)
