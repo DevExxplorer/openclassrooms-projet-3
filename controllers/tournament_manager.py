@@ -99,10 +99,7 @@ class TournamentManager:
         """
         self.list_tournaments(active_menu=False)
         id_tournament = TournamentsViews().input_info_tournament()
-        if self.get_tournament_by_name(id_tournament):
-            return self.get_tournament_by_name(id_tournament)
-        else:
-            return False
+        return self.get_tournament_by_name(id_tournament)
 
     def get_dates_tournament(self):
         """
@@ -249,7 +246,7 @@ class TournamentManager:
         list_tournament = Tournament().read()
 
         for tournament in list_tournament:
-            if isinstance(id_tournament, int) and tournament['id_tournament'] == int(id_tournament):
+            if tournament['id_tournament'] == int(id_tournament):
                 return tournament
         return False
 

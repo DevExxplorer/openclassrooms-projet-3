@@ -44,6 +44,9 @@ class PlayerManager:
             if response['success']:
                 player_view.message_player('validate', VALIDATION_PLAYER)
 
+                for input_data in self.data:
+                    input_data['valid'] = False
+
                 self.menu_manager.submenu_init()
         else:
             # Gestion des erreurs des inputs
