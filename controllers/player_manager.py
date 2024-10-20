@@ -15,6 +15,7 @@ class PlayerManager:
     def __init__(self, menu_manager):
         """
         Constructeur du menu
+
         Args:
             menu_manager(Array) : Données du menu
         """
